@@ -60,12 +60,13 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 	
 	//Draws and updates
 	public void drawEnemies(Graphics g){
+		System.out.println(enemies.size());
 		if(enemies.isEmpty()){
 			addRingShip(10);
 		}
 		else{
 			for(int i=0;i<enemies.size();i++){
-				if(enemies.get(i).getHealth()<=-10){
+				if(enemies.get(i).getHealth()<=0){
 					enemies.remove(i);
 					i--;
 					continue;

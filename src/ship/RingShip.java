@@ -98,7 +98,7 @@ public class RingShip extends Enemy{
 		if(user.getRect().intersects(this.getRect())){
 			System.out.println(user.getHealth());
 			user.setHealth(user.getHealth()-20);
-			health=0;
+			health=-10;
 		}
 		for(int i=0;i<bullets.size();i++){
 			if(bullets.get(i).getRect().intersects(this.getRect())){
