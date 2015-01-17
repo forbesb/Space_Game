@@ -3,8 +3,11 @@ import graphics.Pixel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
+
+import ship.Ship;
 
 
 public class Game extends JPanel implements KeyListener, ActionListener{
@@ -127,20 +130,20 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 			ship.turn(Math.toRadians(5));
 		}
 		if(space){
-			ship.burners();
+			ship.shoot();
 		}
 	}
 	//KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode()==KeyEvent.VK_UP){
+		if(e.getKeyCode()==KeyEvent.VK_W){
 			up=true;
 		}
-		else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+		else if(e.getKeyCode()==KeyEvent.VK_D){
 			right=true;
 		}
-		else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+		else if(e.getKeyCode()==KeyEvent.VK_A){
 			left=true;
 		}
 		else if(e.getKeyCode()==32){
@@ -150,13 +153,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode()==KeyEvent.VK_UP){
+		if(e.getKeyCode()==KeyEvent.VK_W){
+			System.out.println("left");
 			up=false;
 		}
-		else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+		else if(e.getKeyCode()==KeyEvent.VK_D){
+			System.out.println("left");
 			right=false;
 		}
-		else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+		else if(e.getKeyCode()==KeyEvent.VK_A){
+			System.out.println("left");
 			left=false;
 		}
 		else if(e.getKeyCode()==32){
