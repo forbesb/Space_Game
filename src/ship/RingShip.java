@@ -13,7 +13,7 @@ public class RingShip extends Enemy{
 	
 	public RingShip(double x, double y){
 		super(x, y);
-		speed=3;
+		speed=2;
 		health=1;
 	}
 	@Override
