@@ -12,4 +12,5 @@ public abstract class Weapon {
 	public abstract void draw(Graphics g, double x, double y, double angle);
 	public abstract void fire(double x, double y, double angle);
 	public abstract void update(double x, double y);
+	public abstract ArrayList<Bullet> getBullets();
 }

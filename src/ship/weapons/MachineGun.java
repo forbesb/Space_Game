@@ -29,5 +29,10 @@ public class MachineGun extends Weapon{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public ArrayList<Bullet> getBullets() {
+		// TODO Auto-generated method stub
+		return bullets;
+	}
 	
 }

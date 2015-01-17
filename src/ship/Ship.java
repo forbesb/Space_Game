@@ -12,16 +12,16 @@ import ship.weapons.*;
 
 
 public class Ship {
-	private double angle;
-	private double dx,dy;
-	private double speed;
-	private double x, y;
-	private double sx, sy;
-	private int size;
-	private int accel;
-	private int health;
+	protected double angle;
+	protected double dx,dy;
+	protected double speed;
+	protected double x, y;
+	protected double sx, sy;
+	protected int size;
+	protected int accel;
+	protected int health;
 	
-	private ArrayList<Weapon> weapons=new ArrayList<Weapon>();
+	protected ArrayList<Weapon> weapons=new ArrayList<Weapon>();
 	
 	public Ship(){
 		angle=Math.toRadians(90);
@@ -50,16 +50,18 @@ public class Ship {
 //		g2d.translate(rect1.x+(rect1.width/2), rect1.y+(rect1.height/2));
 		
 		
-		
-		drawShip(g);
+		if(health>0){
+			drawShip(g);
+		}
+	}
+	public void update(){
 		x+=dx;
 		y+=dy;
 		dx-=dx*0.01;
 		dy-=dy*0.01;
-		
-		
 	}
 	
+	//Draw all the modules on your ship.
 	public void drawShip(Graphics g){
 		//Change to Weapons.draw(g);
 		
@@ -88,8 +90,12 @@ public class Ship {
 		//Health
 		g.setColor(Color.green);
 		g.drawLine((int)(x-size*1.5), (int)y-6, (int)(x+size*1.5*health/100), (int)y-6);
-	}
+	} 
 	
+	public void damage(Ship user){
+		health--;
+	}
+	//Accelerates in the var angle direction.
 	public void accel(){
 		accel=2;
 		dx+=Math.cos(angle)/10;
@@ -100,12 +106,14 @@ public class Ship {
 		}
 	}
 	
+	//Creates bullets in weapons. Possibly other types of ammo will be used as well.
 	public void shoot(){
 		for(Weapon i:weapons){
 			i.fire(x-sx,y-sy,angle);
 		}
 	}
 	
+	//Updates angle.
 	public void turn(double turn_rate){
 		angle+=turn_rate;
 	}
@@ -117,6 +125,14 @@ public class Ship {
 
 	public void setAngle(double angle) {
 		this.angle = angle;
+	}
+	
+	public int getHealth(){
+		return health;
+	}
+	
+	public void setHealth(int health){
+		this.health=health;
 	}
 
 	public double getDx() {
@@ -157,6 +173,10 @@ public class Ship {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public ArrayList<Weapon> getWeapons(){
+		return weapons;
 	}
 	
 	public Rectangle getRect(){
