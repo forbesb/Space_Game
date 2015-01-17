@@ -70,10 +70,12 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 					i--;
 					continue;
 				}
-				enemies.get(i).target(ship);
-				enemies.get(i).damage(ship);
-				enemies.get(i).update();
-				enemies.get(i).drawShip(g);
+				else if(enemies.get(i).getHealth()>0){
+					enemies.get(i).target(ship);
+					enemies.get(i).damage(ship);
+					enemies.get(i).update();
+					enemies.get(i).drawShip(g);
+				}
 			}
 		}
 	}

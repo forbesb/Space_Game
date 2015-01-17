@@ -39,6 +39,7 @@ public class RingShip extends Enemy{
 	public void damage(Ship user) {
 		ArrayList<Bullet> bullets=user.getWeapons().get(0).getBullets();
 		if(user.getRect().intersects(this.getRect())){
+			System.out.println(user.getHealth());
 			user.setHealth(user.getHealth()-20);
 			health=0;
 		}
