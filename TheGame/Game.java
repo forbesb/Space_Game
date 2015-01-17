@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import ship.Enemy;
+import ship.RingShip;
 import ship.Ship;
 
 
@@ -17,6 +19,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Pixel[] pixels;
 	private Pixel[] pixels_2;
+	private ArrayList<Enemy> enemies;
 	private Grid grid;
 	private Ship ship;
 	private boolean left, right, up, space;
@@ -30,52 +33,12 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 		timer=new Timer(10,this);
 		
 		ship=new Ship();
+		enemies=new ArrayList<Enemy>();
 		setBackground(new Color(0, 0, 0));
 		setBackground(50);
 		
+		addRingShip(10);
 		addKeyListener(this);
-		
-//		up=new AbstractAction(){
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				ship.accel();
-//			}
-//		};
-//		
-//		right=new AbstractAction(){
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e){
-//				ship.turn(Math.toRadians(-5));
-//			}
-//		};
-//		
-//		left=new AbstractAction(){
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e){
-//				ship.turn(Math.toRadians(5));
-//			}
-//		};
-//		getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
-//		getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
-//		getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "left");
-//		getActionMap().put("up", up);
-//		getActionMap().put("right", right);
-//		getActionMap().put("left", left);
 		
 		timer.start();
 	}
@@ -83,7 +46,36 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		drawBackground(g);
+		drawEnemies(g);
 		ship.draw(g);
+		ship.update();
+	}
+	
+	//Generates Enemies
+	public void addRingShip(int n){
+		for(int i=0;i<n;i++){
+			enemies.add(new RingShip(Math.random()*getWidth()+200,Math.random()*getHeight()+500));
+		}
+	}
+	
+	//Draws and updates
+	public void drawEnemies(Graphics g){
+		if(enemies.isEmpty()){
+			addRingShip(10);
+		}
+		else{
+			for(int i=0;i<enemies.size();i++){
+				if(enemies.get(i).getHealth()<=-10){
+					enemies.remove(i);
+					i--;
+					continue;
+				}
+				enemies.get(i).target(ship);
+				enemies.get(i).damage(ship);
+				enemies.get(i).update();
+				enemies.get(i).drawShip(g);
+			}
+		}
 	}
 	
 	//Draws Backgrounds based on Pixels
